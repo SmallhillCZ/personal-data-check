@@ -1,0 +1,31 @@
+{
+  "name": "@smallhillcz/personal-data-check",
+  "version": "1.0.0",
+  "description": "Find basic personal data in strings",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Martin Kopeček <martin.kopecek@smallhill.cz>",
+  "license": "GPL-3.0-or-later",
+  "devDependencies": {
+    "typescript": "^3.4.3"
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SmallhillCZ/personal-data-check.git"
+  },
+  "keywords": [
+    "personal",
+    "data",
+    "gdpr"
+  ],
+  "bugs": {
+    "url": "https://github.com/SmallhillCZ/personal-data-check/issues"
+  },
+  "homepage": "https://github.com/SmallhillCZ/personal-data-check#readme"
+}
