@@ -44,8 +44,16 @@ export class PersonalDataCheck {
     /* REGIONAL */
     if (this.regionalRegs) {
       this.regionalRegs.forEach(search => {
-        let result;
-        while (result = search.reg.exec(data)) {
+
+        if (search.reg.global) {
+          let result;
+          while (result = search.reg.exec(data)) {
+            if (result) warnings.push({ type: search.type, value: result[0] });
+          }
+        }
+
+        else {
+          let result = search.reg.exec(data)
           if (result) warnings.push({ type: search.type, value: result[0] });
         }
       })

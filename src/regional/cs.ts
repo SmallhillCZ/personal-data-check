@@ -4,7 +4,7 @@ const names = ["Abadon","Abigail","Abiha","Abdon","Ábel","Abelard","Abraham","A
 
 export const cs:PersonalDataCheckRegional = {
   regs: [
-    { type: "id", reg: /\d{2}[01235678]\d[0123]\d\/?\d{3}\d/ }
+    { type: "id", reg: /\d{2}[01235678]\d[0123]\d\/?\d{3}\d/g }
   ],
   names
 }
