@@ -1,6 +1,6 @@
 {
   "name": "@smallhillcz/personal-data-check",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Find basic personal data in strings",
   "main": "lib/index.js",
   "scripts": {
