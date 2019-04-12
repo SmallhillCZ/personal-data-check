@@ -7,7 +7,13 @@ export interface PersonalDataCheckOptions {
   regional: string
 }
 
-export interface PersonalDataCheckRegional {
-  regs: { type: string, reg: RegExp }[];
+export interface PersonalDataCheckRegionalCheck {
+  type: string;
+  fn?: (input: string) => PersonalDataCheckWarning[];
+  reg?: RegExp;
+}
+
+export interface PersonalDataCheckRegionalDef {
+  checks: PersonalDataCheckRegionalCheck[];
   names: string[];
 }

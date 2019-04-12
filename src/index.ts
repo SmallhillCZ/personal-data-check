@@ -1,19 +1,19 @@
-import { PersonalDataCheckOptions, PersonalDataCheckWarning, PersonalDataCheckRegional } from "./schema";
+import { PersonalDataCheckRegionalCheck, PersonalDataCheckRegionalDef, PersonalDataCheckWarning } from "./schema";
 
 export * from "./schema";
 
 export class PersonalDataCheck {
 
   namesReg: RegExp;
-  regionalRegs: { type: string, reg: RegExp }[];
+  regionalChecks: PersonalDataCheckRegionalCheck[];
 
   dateReg: RegExp = /\d{1,2}\. ?\d{1,2}\. ?(\d{2}|')?\d{2}|\d{4}\-\d{2}\-\d{2}|\d{1,2}\/\d{1,2}\/\d{2}?\d{2}/g;
 
-  constructor(regional?: PersonalDataCheckRegional) {
+  constructor(regional?: PersonalDataCheckRegionalDef) {
 
     if (regional) {
       this.namesReg = new RegExp("(^|[ \\.,])(" + regional.names.join("|") + ")($|[ \\.,])", "iug");
-      this.regionalRegs = regional.regs;
+      this.regionalChecks = regional.checks;
     }
   }
 
@@ -42,19 +42,20 @@ export class PersonalDataCheck {
     }
 
     /* REGIONAL */
-    if (this.regionalRegs) {
-      this.regionalRegs.forEach(search => {
+    if (this.regionalChecks) {
+      this.regionalChecks.forEach(check => {
 
-        if (search.reg.global) {
-          let result;
-          while (result = search.reg.exec(data)) {
-            if (result) warnings.push({ type: search.type, value: result[0] });
-          }
+        if (check.reg) {
+            let first = true; // run non global regs only once
+            let result;
+            while (result = (first || check.reg.global) && check.reg.exec(data)) {
+              first = false;
+              if (typeof result === "object") warnings.push({ type: check.type, value: result[0] });
+            }
         }
-
-        else {
-          let result = search.reg.exec(data)
-          if (result) warnings.push({ type: search.type, value: result[0] });
+        
+        if(check.fn){
+          warnings.push(...check.fn(data));
         }
       })
     }
